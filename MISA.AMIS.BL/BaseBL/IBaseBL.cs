@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MISA.AMIS.BL
+{
+    public interface IBaseBL<T>
+    {
+        /// <summary>
+        /// Hàm thêm mới bản ghi
+        /// </summary>
+        /// <param name="newRecord">Thông tin của bản ghi cần thêm mới</param>
+        public int CreateRecord(T newRecord);
+        /// <summary>
+        /// Hàm lấy bản ghi theo ID
+        /// </summary>
+        /// <param name="recordID">ID của bản ghi</param>
+        /// <returns>Chi tiết 1 bản ghi</returns>
+        /// CreatedBy: NDDuy (05/01/2023)
+        public T GetRecordByID(Guid recordID);
+
+        /// <summary>
+        /// Hàm lấy tất cả bản ghi
+        /// </summary>
+        /// <returns>Tất cả bản ghi</returns>
+        /// CreatedBy: NDDuy (05/01/2023)
+        public IEnumerable<T> GetAllRecord();
+
+        /// <summary>
+        /// Hàm xoá một bản ghi theo ID
+        /// </summary>
+        /// <param name="recordID">ID của bản ghi</param>
+        /// <returns>ID bản ghi đã xoá</returns>
+        /// CreatedBy: NDDuy (05/01/2023)
+        public T DeleteRecordByID(Guid recordID);
+    }
+}

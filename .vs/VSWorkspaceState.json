@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\MISA.AMIS.DL",
+    "\\MISA.AMIS.DL\\BaseDL",
+    "\\MISA.AMIS.KeToan.API",
+    "\\MISA.AMIS.KeToan.API\\Controllers",
+    "\\MISA.AMIS.KeToan.Tests",
+    "\\MISA.AMIS.KeToan.UnitTests"
+  ],
+  "SelectedNode": "\\MISA.AMIS.KeToan.API\\Controllers\\EmployeesController.cs",
+  "PreviewInSolutionExplorer": false
+}

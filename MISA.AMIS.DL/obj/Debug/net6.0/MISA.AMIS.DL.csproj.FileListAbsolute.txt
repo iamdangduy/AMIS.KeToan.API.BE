@@ -1,0 +1,15 @@
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\bin\Debug\net6.0\MISA.AMIS.DL.deps.json
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\bin\Debug\net6.0\MISA.AMIS.DL.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\bin\Debug\net6.0\MISA.AMIS.DL.pdb
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\bin\Debug\net6.0\MISA.AMIS.Common.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\bin\Debug\net6.0\MISA.AMIS.Common.pdb
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.csproj.AssemblyReference.cache
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.AssemblyInfoInputs.cache
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.AssemblyInfo.cs
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.csproj.CoreCompileInputs.cache
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.csproj.CopyComplete
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\refint\MISA.AMIS.DL.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\MISA.AMIS.DL.pdb
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.DL\obj\Debug\net6.0\ref\MISA.AMIS.DL.dll

@@ -1,0 +1,15 @@
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\MISA.AMIS.KeToan.UnitTests.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\MISA.AMIS.KeToan.UnitTests.pdb
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\obj\Debug\MISA.AMIS.KeToan.UnitTests.csproj.AssemblyReference.cache
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\obj\Debug\MISA.AMIS.KeToan.UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\obj\Debug\MISA.AMIS.KeToan.UnitTests.csproj.CopyComplete
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\obj\Debug\MISA.AMIS.KeToan.UnitTests.dll
+C:\Users\Duydeptrai1102\Desktop\CSharpMisa\MISA.AMIS.KeToan\MISA.AMIS.KeToan.UnitTests\obj\Debug\MISA.AMIS.KeToan.UnitTests.pdb
