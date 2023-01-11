@@ -391,90 +391,90 @@ namespace MISA.AMIS.KeToan.API.Controllers
         /// <param name="employee">Thông tin của nhân viên sửa</param>
         /// <returns>Nhân viên vừa thêm</returns>
         /// Createdby: NDDuy
-        [HttpPut("{employeeID}")]
-        public IActionResult UpdateEmployee([FromRoute] Guid employeeID, [FromBody] Employee employee)
-        {
-            try
-            {
-                this.isCheck = true;
-                //Validate dữ liệu đầu vào
-                if (employee.EmployeeCode == "")
-                {
-                    this.isCheck = false;
-                    devValidates = "Mã nhân viên không được phép để trống";
-                }
-                else if (employee.EmployeeName == "")
-                {
-                    this.isCheck = false;
-                    devValidates = "Tên nhân viên không được phép để trống";
-                }
-                else if (employee.DepartmentID == 0 || employee.DepartmentID == null)
-                {
-                    this.isCheck = false;
-                    devValidates = "Mã phòng ban không được phép để trống";
-                }
+        //[HttpPut("{employeeID}")]
+        //public IActionResult UpdateEmployee([FromRoute] Guid employeeID, [FromBody] Employee employee)
+        //{
+        //    try
+        //    {
+        //        this.isCheck = true;
+        //        //Validate dữ liệu đầu vào
+        //        if (employee.EmployeeCode == "")
+        //        {
+        //            this.isCheck = false;
+        //            devValidates = "Mã nhân viên không được phép để trống";
+        //        }
+        //        else if (employee.EmployeeName == "")
+        //        {
+        //            this.isCheck = false;
+        //            devValidates = "Tên nhân viên không được phép để trống";
+        //        }
+        //        else if (employee.DepartmentID == "")
+        //        {
+        //            this.isCheck = false;
+        //            devValidates = "Mã phòng ban không được phép để trống";
+        //        }
 
-                //Chuẩn bị tên stored procedure
-                string storedProcedureName = "Proc_employee_UpdateEmployee";
+        //        //Chuẩn bị tên stored procedure
+        //        string storedProcedureName = "Proc_employee_UpdateEmployee";
 
-                //Chuẩn bị tham số đầu vào cho stored procedure
-                var parameters = new DynamicParameters();
-                parameters.Add("ms_EmployeeID", employeeID);
-                parameters.Add("@EmployeeCode", employee.EmployeeCode);
-                parameters.Add("ms_EmployeeName", employee.EmployeeName);
-                parameters.Add("@Email", employee.Email);
-                parameters.Add("@PhoneNumber", employee.PhoneNumber);
-                parameters.Add("@DepartmentID", employee.DepartmentID);
-                parameters.Add("@DateOfBirth", employee.DateOfBirth);
-                parameters.Add("@Gender", employee.Gender);
-                parameters.Add("@IdentityNumber", employee.IdentityNumber);
-                parameters.Add("@IssuedDate", employee.IssuedDate);
-                parameters.Add("@ModifiedBy", employee.ModifiedBy);
-                parameters.Add("@Address", employee.Address);
-                parameters.Add("@IssuedPlace", employee.IssuedPlace);
-                parameters.Add("@ModifiedDate", employee.ModifiedDate);
+        //        //Chuẩn bị tham số đầu vào cho stored procedure
+        //        var parameters = new DynamicParameters();
+        //        parameters.Add("ms_EmployeeID", employeeID);
+        //        parameters.Add("@EmployeeCode", employee.EmployeeCode);
+        //        parameters.Add("ms_EmployeeName", employee.EmployeeName);
+        //        parameters.Add("@Email", employee.Email);
+        //        parameters.Add("@PhoneNumber", employee.PhoneNumber);
+        //        parameters.Add("@DepartmentID", employee.DepartmentID);
+        //        parameters.Add("@DateOfBirth", employee.DateOfBirth);
+        //        parameters.Add("@Gender", employee.Gender);
+        //        parameters.Add("@IdentityNumber", employee.IdentityNumber);
+        //        parameters.Add("@IssuedDate", employee.IssuedDate);
+        //        parameters.Add("@ModifiedBy", employee.ModifiedBy);
+        //        parameters.Add("@Address", employee.Address);
+        //        parameters.Add("@IssuedPlace", employee.IssuedPlace);
+        //        parameters.Add("@ModifiedDate", employee.ModifiedDate);
 
-                //Khởi tạo kết nối tới database
-                string connectionString = "Server=localhost;Port=3306;Database=amis.ke_toan;Uid=root;Pwd=nguyenduy18;";
-                var mySqlConnection = new MySqlConnection(connectionString);
+        //        //Khởi tạo kết nối tới database
+        //        string connectionString = "Server=localhost;Port=3306;Database=amis.ke_toan;Uid=root;Pwd=nguyenduy18;";
+        //        var mySqlConnection = new MySqlConnection(connectionString);
 
-                //Thực hiện gọi vào database để chạy stored procedure
-                var numberOfAffectedRows = 0;
-                if (this.isCheck == true)
-                {
-                    numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-                }
+        //        //Thực hiện gọi vào database để chạy stored procedure
+        //        var numberOfAffectedRows = 0;
+        //        if (this.isCheck == true)
+        //        {
+        //            numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+        //        }
 
-                //Xử lí kết quả trả về
-                if (numberOfAffectedRows == 0)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
-                    {
-                        ErrorCode = AmisErrorCode.UpdateEmployeeFailde,
-                        DevMsg = devValidates,
-                        UserMsg = "Cập nhập thông tin nhân viên " + employeeID + " thất bại, vui lòng thử lại",
-                        MoreInfo = "Xem thông tin lỗi chi tiết tại https://openapi/amis/error-code/4",
-                        TraceId = HttpContext.TraceIdentifier
-                    });
-                }
-                else
-                {
-                    return StatusCode(200, employeeID);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
-                {
-                    ErrorCode = AmisErrorCode.UpdateEmployeeFailde,
-                    DevMsg = "Chạy procedure thất bại " + e.Message,
-                    UserMsg = "Cập nhập thông tin nhân viên " + employeeID + " thất bại, vui lòng thử lại",
-                    MoreInfo = "Xem thông tin lỗi chi tiết tại https://openapi/amis/error-code/4",
-                    TraceId = HttpContext.TraceIdentifier
-                });
-            }
-        }
+        //        //Xử lí kết quả trả về
+        //        if (numberOfAffectedRows == 0)
+        //        {
+        //            return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+        //            {
+        //                ErrorCode = AmisErrorCode.UpdateEmployeeFailde,
+        //                DevMsg = devValidates,
+        //                UserMsg = "Cập nhập thông tin nhân viên " + employeeID + " thất bại, vui lòng thử lại",
+        //                MoreInfo = "Xem thông tin lỗi chi tiết tại https://openapi/amis/error-code/4",
+        //                TraceId = HttpContext.TraceIdentifier
+        //            });
+        //        }
+        //        else
+        //        {
+        //            return StatusCode(200, employeeID);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+        //        {
+        //            ErrorCode = AmisErrorCode.UpdateEmployeeFailde,
+        //            DevMsg = "Chạy procedure thất bại " + e.Message,
+        //            UserMsg = "Cập nhập thông tin nhân viên " + employeeID + " thất bại, vui lòng thử lại",
+        //            MoreInfo = "Xem thông tin lỗi chi tiết tại https://openapi/amis/error-code/4",
+        //            TraceId = HttpContext.TraceIdentifier
+        //        });
+        //    }
+        //}
 
         /// <summary>
         /// API delete một nhân viên

@@ -120,6 +120,9 @@
   <data name="DevMsg" xml:space="preserve">
     <value>Có lỗi xảy ra</value>
   </data>
+  <data name="GetEmployeeByIDNotFound" xml:space="preserve">
+    <value>Không tìm thấy bản ghi theo ID</value>
+  </data>
   <data name="MySQL" xml:space="preserve">
     <value>Server=localhost;Port=3306;Database=amis.ke_toan;Uid=root;Pwd=nguyenduy18;</value>
   </data>

@@ -18,7 +18,7 @@ builder.Services.AddScoped<IEmployeeBL, EmployeeBL>();
 builder.Services.AddScoped<IConnectionDL, MySqlConnectionDL>();
 
 //Lấy dữ liệu từ connectionString
-DataContext.ConnectionString = Resource.MySQL;
+DataContext.ConnectionString = builder.Configuration.GetConnectionString("MySQL");
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

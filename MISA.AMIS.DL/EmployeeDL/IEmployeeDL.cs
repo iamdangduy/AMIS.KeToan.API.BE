@@ -16,13 +16,5 @@ namespace MISA.AMIS.DL
         /// Created by: NDDuy (05/01/2023)
         public string GetNewCode();
 
-        /// <summary>
-        /// Thêm mới nhân viên
-        /// </summary>
-        /// <param name="newEmployee">Thông tin nhân viên</param>
-        /// <returns>ID của nhân viên vừa thêm mới</returns>
-        /// Createdby: NDDuy (10/01/2023)
-        //public int CreatedEmployee(Employee newEmployee);
-
     }
 }

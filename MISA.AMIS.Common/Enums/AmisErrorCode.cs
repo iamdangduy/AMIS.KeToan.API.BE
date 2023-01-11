@@ -56,5 +56,10 @@
         /// Xoá một nhân viên thất bại 500
         /// </summary>
         DeleteEmployeeFaildedExc = 10,
+
+        /// <summary>
+        /// Tìm kiếm nhân viên thất bại
+        /// </summary>
+        GetEmployeeByIDNotFound = 11,
     }
 }

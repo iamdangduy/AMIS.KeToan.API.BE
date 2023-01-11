@@ -70,6 +70,15 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy bản ghi theo ID.
+        /// </summary>
+        public static string GetEmployeeByIDNotFound {
+            get {
+                return ResourceManager.GetString("GetEmployeeByIDNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server=localhost;Port=3306;Database=amis.ke_toan;Uid=root;Pwd=nguyenduy18;.
         /// </summary>
         public static string MySQL {

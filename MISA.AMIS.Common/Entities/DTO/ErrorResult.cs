@@ -15,12 +15,6 @@ namespace MISA.AMIS.Common.Entities
         public string DevMsg { get; set; }
 
         /// <summary>
-        /// Thông báo danh sách lỗi cho người dùng
-        /// </summary>
-        public List<string> DevMsgs { get; set; }
-
-
-        /// <summary>
         /// thông báo lỗi cho người dùng
         /// </summary>
         public string UserMsg { get; set; }

@@ -9,10 +9,20 @@ namespace MISA.AMIS.BL
     public interface IBaseBL<T>
     {
         /// <summary>
+        /// Hàm sửa một nhân viên
+        /// </summary>
+        /// <param name="recordID">Id của nhân viên cần sửa</param>
+        /// <returns>mã nhân viên vừa sửa</returns>
+        /// CreatedBy: NDDuy (05/01/2023)
+        public int UpdateRecord(Guid recordID, T newRecord);
+
+        /// <summary>
         /// Hàm thêm mới bản ghi
         /// </summary>
         /// <param name="newRecord">Thông tin của bản ghi cần thêm mới</param>
+        /// CreatedBy: NDDuy (05/01/2023)
         public int CreateRecord(T newRecord);
+
         /// <summary>
         /// Hàm lấy bản ghi theo ID
         /// </summary>

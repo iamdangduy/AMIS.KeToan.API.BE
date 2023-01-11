@@ -1,20 +1,26 @@
-﻿namespace MISA.AMIS.Common.Entities
+﻿
+using static MISA.AMIS.Common.MISAAttributes;
+
+namespace MISA.AMIS.Common.Entities
 {
     public class Employee
     {
         /// <summary>
         /// Khoá chính
         /// </summary>
-        public Guid? EmployeeID { get; set; }
+        [PrimaryKey]
+        public Guid EmployeeID { get; set; }
 
         /// <summary>
         /// Mã nhân viên
         /// </summary>
+        [IsNotNullOrEmpty("Mã nhân viên không được để trống")]
         public string EmployeeCode { get; set; }
 
         /// <summary>
         /// Tên nhân viên
         /// </summary>
+        [IsNotNullOrEmpty("Tên nhân viên không được để trống")]
         public string EmployeeName { get; set; }
 
         /// <summary>
@@ -65,7 +71,8 @@
         /// <summary>
         /// Mã phòng ban
         /// </summary>
-        public int? DepartmentID { get; set; }
+        [IsNotNullOrEmpty("đơn vị không được để trống")]
+        public Guid DepartmentID { get; set; }
 
         /// <summary>
         /// Người tạo
@@ -82,6 +89,5 @@
         /// </summary>
         public string? ModifiedBy { get; set; }
 
-        public Employee() { }
     }
 }

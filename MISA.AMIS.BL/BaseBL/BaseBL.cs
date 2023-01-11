@@ -67,6 +67,16 @@ namespace MISA.AMIS.BL
             return _baseDL.GetRecordByID(recordID);
         }
 
+        /// <summary>
+        /// Hàm sửa một nhân viên
+        /// </summary>
+        /// <param name="recordID">Id của nhân viên cần sửa</param>
+        /// <returns>mã nhân viên vừa sửa</returns>
+        public int UpdateRecord(Guid recordID, T newRecord)
+        {
+            return _baseDL.UpdateRecord(recordID, newRecord);
+        }
+
         #endregion
     }
 }

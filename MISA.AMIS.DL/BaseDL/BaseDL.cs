@@ -136,5 +136,37 @@ namespace MISA.AMIS.DL
             //Thực hiện gọi vào database để chạy stored procedure
 
         }
+
+        /// <summary>
+        /// Hàm sửa một nhân viên
+        /// </summary>
+        /// <param name="recordID">Id của nhân viên cần sửa</param>
+        /// <returns>mã nhân viên vừa sửa</returns>
+        public int UpdateRecord(Guid recordID, T newRecord)
+        {
+            //Chuẩn bị tên stored procedure
+            string className = typeof(T).Name;
+            string storedProcedureName = $"Proc_{className}_Update{className}";
+            //Chuẩn bị tham số đầu vào cho stored procedure
+            var parameters = new DynamicParameters();
+            var properties = typeof(Employee).GetProperties();
+            foreach (var prop in properties)
+            {
+                parameters.Add($"{prop.Name}", prop.GetValue(newRecord));
+            }
+            parameters.Add($"@{className}ID", recordID);
+
+            var numberOfAffectedRows = 0;
+
+            // Khởi tạo kết nối đến DB
+            var connectionString = DataContext.ConnectionString;
+            using (var mySqlConnection = _connectionDL.InitConnection(connectionString))
+            {
+                // Gọi vào DB để chạy stored ở trên
+                numberOfAffectedRows = _connectionDL.Execute(mySqlConnection, storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            }
+
+            return numberOfAffectedRows;
+        }
     }
 }

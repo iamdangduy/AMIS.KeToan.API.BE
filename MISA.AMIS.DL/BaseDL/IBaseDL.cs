@@ -37,5 +37,12 @@ namespace MISA.AMIS.DL
         /// </summary>
         /// <param name="newRecord">Thông tin bản ghi cần thêm mới</param>
         int CreateRecord(T newRecord);
+
+        /// <summary>
+        /// Hàm sửa một nhân viên
+        /// </summary>
+        /// <param name="recordID">Id của nhân viên cần sửa</param>
+        /// <returns>mã nhân viên vừa sửa</returns>
+        int UpdateRecord(Guid recordID, T newRecord);
     }
 }
