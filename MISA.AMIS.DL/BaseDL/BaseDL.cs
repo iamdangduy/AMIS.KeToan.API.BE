@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MISA.AMIS.Common;
 using MISA.AMIS.Common.Entities;
 using MySqlConnector;
 using System;
@@ -22,7 +23,44 @@ namespace MISA.AMIS.DL
             _connectionDL = connectionDL;
         }
 
+
         #endregion
+
+        /// <summary>
+        /// Hàm check mã trùng
+        /// </summary>
+        /// <param name="recordCode"></param>
+        /// <param name="recordID"></param>
+        /// <returns>kiểm tra mã có trùng hay không </returns>
+        /// CreatedBy: NDDuy (12/01/2023)
+        public bool CheckDuplicateCode(string? recordCode)
+        {
+            //Chuẩn bị tên stored procedure
+            string className = typeof(T).Name;
+            string storedProcedureName = $"Proc_{className}_DuplicateCode";
+
+            // Chuẩn bị tham số đầu vào
+            var parameters = new DynamicParameters();
+            parameters.Add($"{className}Code", recordCode);
+
+            var DuplicateCode = 0;
+
+            // Khởi tạo kết nối đến DB
+            var connectionString = DataContext.ConnectionString;
+            using (var mySqlConnection = _connectionDL.InitConnection(connectionString))
+            {
+                DuplicateCode = _connectionDL.Execute(mySqlConnection, storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            }
+
+            if (DuplicateCode > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         /// <summary>
         /// Hàm thêm mới bản ghi
         /// </summary>
@@ -168,5 +206,6 @@ namespace MISA.AMIS.DL
 
             return numberOfAffectedRows;
         }
+
     }
 }

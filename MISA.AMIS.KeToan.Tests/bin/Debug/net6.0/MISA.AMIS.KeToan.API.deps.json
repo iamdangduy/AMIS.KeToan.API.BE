@@ -9,6 +9,8 @@
       "MISA.AMIS.KeToan.API/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.123",
+          "MISA.AMIS.BL": "1.0.0",
+          "MISA.AMIS.Common": "1.0.0",
           "MySqlConnector": "2.2.4",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
@@ -78,6 +80,30 @@
             "fileVersion": "6.2.3.0"
           }
         }
+      },
+      "MISA.AMIS.BL/1.0.0": {
+        "dependencies": {
+          "MISA.AMIS.Common": "1.0.0",
+          "MISA.AMIS.DL": "1.0.0"
+        },
+        "runtime": {
+          "MISA.AMIS.BL.dll": {}
+        }
+      },
+      "MISA.AMIS.Common/1.0.0": {
+        "runtime": {
+          "MISA.AMIS.Common.dll": {}
+        }
+      },
+      "MISA.AMIS.DL/1.0.0": {
+        "dependencies": {
+          "Dapper": "2.0.123",
+          "MISA.AMIS.Common": "1.0.0",
+          "MySqlConnector": "2.2.4"
+        },
+        "runtime": {
+          "MISA.AMIS.DL.dll": {}
+        }
       }
     }
   },
@@ -142,6 +168,21 @@
       "sha512": "sha512-bCRI87uKJVb4G+KURWm8LQrL64St04dEFZcF6gIM67Zc0Sr/N47EO83ybLMYOvfNdO1DCv8xwPcrz9J/VEhQ5g==",
       "path": "swashbuckle.aspnetcore.swaggerui/6.2.3",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+    },
+    "MISA.AMIS.BL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MISA.AMIS.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MISA.AMIS.DL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

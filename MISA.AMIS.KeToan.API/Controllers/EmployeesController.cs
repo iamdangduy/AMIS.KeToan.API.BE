@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MISA.AMIS.BL;
 using MISA.AMIS.Common.Entities;
 using MISA.AMIS.Common.Enums;
+using MISA.AMIS.DL;
 using MySqlConnector;
 
 namespace MISA.AMIS.KeToan.API.Controllers
@@ -172,24 +173,10 @@ namespace MISA.AMIS.KeToan.API.Controllers
         {
             try
             {
-                //Validate dữ liệu đầu vào
-
-                //Chuẩn bị tên stored procedure
-                string storedProcedureName = "Proc_employee_GetMaxByEmployeeCode";
-
-                //Chuẩn bị tham số đầu vào cho stored procedure
-
-                //Khởi tạo kết nối tới database
-                string connectionString = "Server=localhost;Port=3306;Database=amis.ke_toan;Uid=root;Pwd=nguyenduy18;";
-                var mySqlConnection = new MySqlConnection(connectionString);
-
-                //thực hiện gọi vào database để chạy stored procedure
-                var maxCodeEmployee = mySqlConnection.Query(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
-
-                //Xử lí kết quả trả về
-                if (maxCodeEmployee != null)
+                var maxRecordCode = _employeeBL.GetMaxEmployeeCode();
+                if (maxRecordCode != null)
                 {
-                    return StatusCode(StatusCodes.Status200OK, maxCodeEmployee);
+                    return StatusCode(StatusCodes.Status200OK, maxRecordCode);
                 }
                 else
                 {
@@ -202,6 +189,7 @@ namespace MISA.AMIS.KeToan.API.Controllers
                         TraceId = HttpContext.TraceIdentifier
                     });
                 }
+
             }
             catch (Exception e)
             {
@@ -234,7 +222,7 @@ namespace MISA.AMIS.KeToan.API.Controllers
                 parameters.Add("ms_TotalCount", direction: System.Data.ParameterDirection.Output);
 
                 //Khởi tạo kết nối tới database
-                string connectionString = "Server=localhost;Port=3306;Database=amis.ke_toan;Uid=root;Pwd=nguyenduy18;";
+                var connectionString = DataContext.ConnectionString;
                 var mySqlConnection = new MySqlConnection(connectionString);
 
                 //Thực hiện gọi vào database để chạy stored procedure

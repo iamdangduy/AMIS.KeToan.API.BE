@@ -10,10 +10,10 @@ namespace MISA.AMIS.BL
     public interface IEmployeeBL : IBaseBL<Employee>
     {
         /// <summary>
-        /// Lấy mã mới
+        /// Trả về mã lớn nhất
         /// </summary>
-        /// <returns>Mã mới</returns>
+        /// <returns>Mã lớn nhất</returns>
         /// Created by: NDDuy (05/01/2023)
-        string GetNewCode();
+        public string GetMaxEmployeeCode();
     }
 }

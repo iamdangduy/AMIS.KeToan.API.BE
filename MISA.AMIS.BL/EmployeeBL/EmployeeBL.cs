@@ -26,16 +26,16 @@ namespace MISA.AMIS.BL
         #endregion
 
         #region Method
-        
+
         /// <summary>
-        /// Hàm lấy mã nhân viên mới nhất
+        /// Trả về mã lớn nhất
         /// </summary>
-        /// <returns>Mã nhân viên mới</returns>
+        /// <returns>Mã lớn nhất</returns>
         /// Created by: NDDuy (05/01/2023)
-        public string GetNewCode()
+        public string GetMaxEmployeeCode()
         {
-            return _employeeDL.GetNewCode();
-        } 
+            return _employeeDL.GetMaxEmployeeCode();
+        }
 
         #endregion
     }

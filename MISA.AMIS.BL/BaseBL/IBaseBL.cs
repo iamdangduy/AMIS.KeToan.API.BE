@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.AMIS.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,14 @@ namespace MISA.AMIS.BL
 {
     public interface IBaseBL<T>
     {
+        /// <summary>
+        /// Hàm validate dữ liệu
+        /// </summary>
+        /// <param name="record">Dữ liệu đầu vào</param>
+        /// <returns>Đối tượng service mô tả thành công hoặc thất bại</returns>
+        /// CreatedBy: NDDuy (13/1/2023)
+        public ServiceResponse ValidateData(T record);
+
         /// <summary>
         /// Hàm sửa một nhân viên
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using MISA.AMIS.Common.Entities;
+﻿using MISA.AMIS.Common;
+using MISA.AMIS.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,17 @@ namespace MISA.AMIS.DL
 {
     public interface IBaseDL<T>
     {
+        
+
+        /// <summary>
+        /// Hàm check mã trùng
+        /// </summary>
+        /// <param name="recordCode"></param>
+        /// <param name="recordID"></param>
+        /// <returns>kiểm tra mã có trùng hay không </returns>
+        /// CreatedBy: NDDuy (12/01/2023)
+        public bool CheckDuplicateCode(string? recordCode);
+
         /// <summary>
         /// Hàm lấy bản ghi theo ID
         /// </summary>

@@ -1,9 +1,13 @@
-﻿using MISA.AMIS.DL;
+﻿using MISA.AMIS.Common;
+using MISA.AMIS.Common.Entities;
+using MISA.AMIS.Common.Enums;
+using MISA.AMIS.DL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MISA.AMIS.Common.MISAAttributes;
 
 namespace MISA.AMIS.BL
 {
@@ -32,6 +36,7 @@ namespace MISA.AMIS.BL
         /// <param name="newRecord">Thông tin của bản ghi cần thêm mới</param>
         public int CreateRecord(T newRecord)
         {
+
             return _baseDL.CreateRecord(newRecord);
         }
 
@@ -75,6 +80,49 @@ namespace MISA.AMIS.BL
         public int UpdateRecord(Guid recordID, T newRecord)
         {
             return _baseDL.UpdateRecord(recordID, newRecord);
+        }
+
+
+        /// <summary>
+        /// Hàm validate dữ liệu
+        /// </summary>
+        /// <param name="record">Dữ liệu đầu vào</param>
+        /// <returns>Đối tượng service mô tả thành công hoặc thất bại</returns>
+        /// CreatedBy: NDDuy (13/1/2023)
+        public ServiceResponse ValidateData(T record)
+        {
+            var errorMessages = new List<string>();
+
+            var properties = typeof(T).GetProperties();
+
+            foreach (var property in properties)
+            {
+                var propertyValue = property.GetValue(record);
+
+                var isNotNullOrEmptyAttribute = (IsNotNullOrEmptyAttribute?)Attribute.GetCustomAttribute(property, typeof(IsNotNullOrEmptyAttribute));
+                if (isNotNullOrEmptyAttribute != null && string.IsNullOrEmpty(propertyValue?.ToString()))
+                {
+                    errorMessages.Add(isNotNullOrEmptyAttribute.ErrorMessage);
+                }
+
+                if (errorMessages.Count > 0)
+                {
+                    return new ServiceResponse
+                    {
+                        Success = (int)StatusResponse.Invalid,
+                        Data = new ErrorResult
+                        {
+                            ErrorCode = AmisErrorCode.InsertFailed,
+                            DevMsg = Resource.DevMsg_InvalidInput,
+                            UserMsg = Resource.UserMsg_InvalidInput,
+                            MoreInfo = errorMessages.ToArray(),
+                        }
+                    };
+                }
+
+            }
+            return new ServiceResponse { Success = (int)StatusResponse.Done };
+
         }
 
         #endregion

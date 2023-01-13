@@ -70,6 +70,15 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dữ liệu đầu vào không hợp lệ.
+        /// </summary>
+        public static string DevMsg_InvalidInput {
+            get {
+                return ResourceManager.GetString("DevMsg_InvalidInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không tìm thấy bản ghi theo ID.
         /// </summary>
         public static string GetEmployeeByIDNotFound {
@@ -79,20 +88,20 @@ namespace MISA.AMIS.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server=localhost;Port=3306;Database=amis.ke_toan;Uid=root;Pwd=nguyenduy18;.
-        /// </summary>
-        public static string MySQL {
-            get {
-                return ResourceManager.GetString("MySQL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Có lỗi xảy ra, vui lòng liên hệ MISA.
         /// </summary>
         public static string UserMsg {
             get {
                 return ResourceManager.GetString("UserMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dữ liệu đầu vào không hợp lệ.
+        /// </summary>
+        public static string UserMsg_InvalidInput {
+            get {
+                return ResourceManager.GetString("UserMsg_InvalidInput", resourceCulture);
             }
         }
     }
