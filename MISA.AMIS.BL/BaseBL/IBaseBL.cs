@@ -10,6 +10,15 @@ namespace MISA.AMIS.BL
     public interface IBaseBL<T>
     {
         /// <summary>
+        /// Kiểm tra mã trùng
+        /// </summary>
+        /// <param name="record"></param>
+        /// <param name="recordID"></param>
+        /// <returns>bool kiểm tra có trùng hay không</returns>
+        /// Modified by: NDDuy (13/1/2023)
+        public ServiceResponse CheckDuplicateCode(Guid? recordID, T record);
+
+        /// <summary>
         /// Hàm validate dữ liệu
         /// </summary>
         /// <param name="record">Dữ liệu đầu vào</param>
@@ -54,5 +63,14 @@ namespace MISA.AMIS.BL
         /// <returns>ID bản ghi đã xoá</returns>
         /// CreatedBy: NDDuy (05/01/2023)
         public T DeleteRecordByID(Guid recordID);
+
+        /// <summary>
+        /// Hàm lấy bản ghi theo keyword và paging
+        /// </summary>
+        /// <param name="ms_PageIndex">Vị trí trang</param>
+        /// <param name="ms_PageSize">Số bản ghi trên 1 trang</param>
+        /// <param name="ms_Search">Keyword</param>
+        /// <returns>Danh sách bản ghi thoả mãn</returns>
+        public IEnumerable<T> GetRecordFilterPaging(int? ms_PageIndex = 1, int? ms_PageSize = 10, string? ms_Search = "");
     }
 }

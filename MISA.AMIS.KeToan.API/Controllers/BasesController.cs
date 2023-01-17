@@ -34,14 +34,32 @@ namespace MISA.AMIS.KeToan.API.Controllers
         {
             try
             {
-                var record = _baseBL.UpdateRecord(recordID, newRecord);
-                if (record > 0)
+                var result = _baseBL.UpdateRecord(recordID, newRecord);
+                if (result == (int)StatusResponse.Done)
                 {
                     return StatusCode(StatusCodes.Status200OK);
                 }
+                else if (result == (int)StatusResponse.Invalid || result == (int)StatusResponse.DuplicateCode)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                    {
+                        ErrorCode = AmisErrorCode.InsertFailed,
+                        DevMsg = Resource.DevMsg_InvalidInput,
+                        UserMsg = Resource.UserMsg_InvalidInput,
+                        MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/1",
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
                 else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest);
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                    {
+                        ErrorCode = AmisErrorCode.Exception,
+                        DevMsg = Resource.DevMsg,
+                        UserMsg = Resource.UserMsg,
+                        MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/0",
+                        TraceId = HttpContext.TraceIdentifier
+                    });
                 }
             }
             catch (Exception ex)
@@ -64,14 +82,34 @@ namespace MISA.AMIS.KeToan.API.Controllers
         {
             try
             {
-                var record = _baseBL.CreateRecord(newRecord);
-                if (record > 0)
+                var result = _baseBL.CreateRecord(newRecord);
+                // Xử lý kết quả trả về
+                if (result == (int)StatusResponse.Done)
                 {
                     return StatusCode(StatusCodes.Status201Created);
                 }
+                else if (result == (int)StatusResponse.Invalid || result == (int)StatusResponse.DuplicateCode)
+                {
+                    Console.WriteLine(result);
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                    {
+                        ErrorCode = AmisErrorCode.InsertFailed,
+                        DevMsg = Resource.DevMsg_InvalidInput,
+                        UserMsg = Resource.UserMsg_InvalidInput,
+                        MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/1",
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
                 else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest);
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                    {
+                        ErrorCode = AmisErrorCode.Exception,
+                        DevMsg = Resource.DevMsg,
+                        UserMsg = Resource.UserMsg,
+                        MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/0",
+                        TraceId = HttpContext.TraceIdentifier
+                    });
                 }
             }
             catch (Exception ex)
@@ -80,10 +118,10 @@ namespace MISA.AMIS.KeToan.API.Controllers
                 Console.WriteLine(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
                 {
-                    ErrorCode = AmisErrorCode.GetEmployeeByIDExc,
+                    ErrorCode = AmisErrorCode.Exception,
                     DevMsg = Resource.DevMsg,
                     UserMsg = Resource.UserMsg,
-                    MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/3",
+                    MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/0",
                     TraceId = HttpContext.TraceIdentifier
                 });
             }
@@ -170,7 +208,7 @@ namespace MISA.AMIS.KeToan.API.Controllers
         /// <returns>Danh sách tất cả nhân viên</returns>
         /// Createdby: NDDuy
         [HttpGet]
-        public IActionResult GetAllEmpoloyees()
+        public IActionResult GetAllRecord()
         {
             try
             {
@@ -198,6 +236,41 @@ namespace MISA.AMIS.KeToan.API.Controllers
             }
         }
 
+        [HttpGet("filter")]
+        public IActionResult GetRecordFilterPaging(int? ms_PageIndex = 1, int? ms_PageSize = 10, string? ms_Search = "")
+        {
+            try
+            {
+                var record = _baseBL.GetRecordFilterPaging(ms_PageIndex, ms_PageSize, ms_Search);
+                if (record != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, record);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new ErrorResult
+                    {
+                        ErrorCode = AmisErrorCode.GetEmployeeByIDNotFound,
+                        DevMsg = Resource.GetEmployeeByIDNotFound,
+                        UserMsg = Resource.GetEmployeeByIDNotFound,
+                        MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/3",
+                        TraceId = HttpContext.TraceIdentifier
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResult
+                {
+                    ErrorCode = AmisErrorCode.GetEmployeeByIDExc,
+                    DevMsg = Resource.DevMsg,
+                    UserMsg = Resource.UserMsg,
+                    MoreInfo = "Xem chi tiết lỗi tại https://openapi/amis/employees/err-code/3",
+                    TraceId = HttpContext.TraceIdentifier
+                });
+            }
+        }
         #endregion
     }
 }

@@ -13,16 +13,17 @@ namespace MISA.AMIS.DL
     public class BaseDL<T> : IBaseDL<T>
     {
         #region Field
+
         private IConnectionDL _connectionDL;
 
         #endregion
 
         #region Constructor
+
         public BaseDL(IConnectionDL connectionDL)
         {
             _connectionDL = connectionDL;
         }
-
 
         #endregion
 
@@ -33,34 +34,28 @@ namespace MISA.AMIS.DL
         /// <param name="recordID"></param>
         /// <returns>kiểm tra mã có trùng hay không </returns>
         /// CreatedBy: NDDuy (12/01/2023)
-        public bool CheckDuplicateCode(string? recordCode)
+        public bool CheckDuplicateCode(string? recordCode, Guid? recordID)
         {
             //Chuẩn bị tên stored procedure
-            string className = typeof(T).Name;
-            string storedProcedureName = $"Proc_{className}_DuplicateCode";
+            string storedProcedureName = String.Format(ProcedureName.CHECK_DUPLICATE_CODE, typeof(T).Name);
 
             // Chuẩn bị tham số đầu vào
             var parameters = new DynamicParameters();
-            parameters.Add($"{className}Code", recordCode);
+            parameters.Add($"@{typeof(T).Name}Code", recordCode);
+            parameters.Add($"@{typeof(T).Name}ID", recordID);
 
-            var DuplicateCode = 0;
+            var DuplicateCode = default(T);
 
             // Khởi tạo kết nối đến DB
             var connectionString = DataContext.ConnectionString;
             using (var mySqlConnection = _connectionDL.InitConnection(connectionString))
             {
-                DuplicateCode = _connectionDL.Execute(mySqlConnection, storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                DuplicateCode = _connectionDL.QueryFirstOrDefault<T>(mySqlConnection, storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
 
-            if (DuplicateCode > 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return DuplicateCode != null;
         }
+
         /// <summary>
         /// Hàm thêm mới bản ghi
         /// </summary>
@@ -68,8 +63,7 @@ namespace MISA.AMIS.DL
         public int CreateRecord(T newRecord)
         {
             //Chuẩn bị tên stored procedure
-            string className = typeof(T).Name;
-            string storedProcedureName = $"Proc_{className}_Insert";
+            string storedProcedureName = String.Format(ProcedureName.INSERT, typeof(T).Name);
 
             //Chuẩn bị tham số đầu vào cho stored procedure
             var parameters = new DynamicParameters();
@@ -79,7 +73,7 @@ namespace MISA.AMIS.DL
             {
                 parameters.Add($"{prop.Name}", prop.GetValue(newRecord));
             }
-            parameters.Add($"{className}Id", newRecordID);
+            parameters.Add($"@{typeof(T).Name}Id", newRecordID);
 
             var numberOfAffectedRows = 0;
 
@@ -102,12 +96,11 @@ namespace MISA.AMIS.DL
         public T DeleteRecordByID(Guid recordID)
         {
             //Chuẩn bị tên stored procedure
-            string className = typeof(T).Name;
-            string storedProcedureName = $"Proc_{className}_DeleteByID";
+            string storedProcedureName = String.Format(ProcedureName.DELETE_BY_ID, typeof(T).Name);
 
             //Chuẩn bị tham số đầu vào cho stored procedure
             var parameters = new DynamicParameters();
-            parameters.Add($"@{className}ID", recordID);
+            parameters.Add($"@{typeof(T).Name}ID", recordID);
 
             //Khởi tạo kết nối tới database
             T? record;
@@ -129,8 +122,7 @@ namespace MISA.AMIS.DL
         public IEnumerable<T> GetAllRecord()
         {
             //Chuẩn bị tên stored procedure
-            string className = typeof(T).Name;
-            string storedProcedureName = $"Proc_{className}_GetAll{className}";
+            string storedProcedureName = String.Format(ProcedureName.GET_ALL, typeof(T).Name);
 
             //Chuẩn bị tham số đầu vào cho stored procedure
             var parameters = new DynamicParameters();
@@ -155,12 +147,11 @@ namespace MISA.AMIS.DL
         public T GetRecordByID(Guid recordID)
         {
             //Chuẩn bị tên stored procedure
-            string className = typeof(T).Name;
-            string storedProcedureName = $"Proc_{className}_GetByID";
+            string storedProcedureName = String.Format(ProcedureName.GET_BY_ID, typeof(T).Name);
 
             //Chuẩn bị tham số đầu vào cho stored procedure
             var parameters = new DynamicParameters();
-            parameters.Add($"@{className}ID", recordID);
+            parameters.Add($"@{typeof(T).Name}ID", recordID);
 
             //Khởi tạo kết nối tới database
             T? record;
@@ -183,16 +174,16 @@ namespace MISA.AMIS.DL
         public int UpdateRecord(Guid recordID, T newRecord)
         {
             //Chuẩn bị tên stored procedure
-            string className = typeof(T).Name;
-            string storedProcedureName = $"Proc_{className}_Update{className}";
+            string storedProcedureName = String.Format(ProcedureName.UPDATE_BY_ID, typeof(T).Name);
+
             //Chuẩn bị tham số đầu vào cho stored procedure
             var parameters = new DynamicParameters();
             var properties = typeof(Employee).GetProperties();
             foreach (var prop in properties)
             {
-                parameters.Add($"{prop.Name}", prop.GetValue(newRecord));
+                parameters.Add($"@{prop.Name}", prop.GetValue(newRecord));
             }
-            parameters.Add($"@{className}ID", recordID);
+            parameters.Add($"@{typeof(T).Name}ID", recordID);
 
             var numberOfAffectedRows = 0;
 
@@ -207,5 +198,31 @@ namespace MISA.AMIS.DL
             return numberOfAffectedRows;
         }
 
+        /// <summary>
+        /// Hàm lấy bản ghi theo keyword và paging
+        /// </summary>
+        /// <param name="ms_PageIndex">Vị trí trang</param>
+        /// <param name="ms_PageSize">Số bản ghi trên 1 trang</param>
+        /// <param name="ms_Search">Keyword</param>
+        /// <returns>Danh sách bản ghi thoả mãn</returns>
+        public IEnumerable<T> GetRecordFilterPaging(int? ms_PageIndex = 1, int? ms_PageSize = 10, string? ms_Search = "")
+        {
+            //Chuẩn bị tên stored procedure
+            string storedProcedureName = String.Format(ProcedureName.GET_BY_FILTER, typeof(T).Name);
+
+            //Chuẩn bị tham số đầu vào cho stored procedure
+            var parameters = new DynamicParameters();
+            parameters.Add("ms_PageIndex", ms_PageIndex);
+            parameters.Add("ms_PageSize", ms_PageSize);
+            parameters.Add("ms_Search", ms_Search);
+            parameters.Add("ms_TotalCount", direction: System.Data.ParameterDirection.Output);
+            //Khởi tạo kết nối tới database
+            var connectionString = DataContext.ConnectionString;
+            var mySqlConnection = new MySqlConnection(connectionString);
+            //Thực hiện gọi vào database để chạy stored procedure
+            var records = mySqlConnection.Query<T>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+
+            return records;
+        }
     }
 }

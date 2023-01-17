@@ -11,7 +11,7 @@ namespace MISA.AMIS.Common.Entities
         /// <summary>
         /// Mã phòng ban
         /// </summary>
-        public int DepartmentID { get; set; }
+        public Guid DepartmentID { get; set; }
 
         /// <summary>
         /// Tên phòng ban

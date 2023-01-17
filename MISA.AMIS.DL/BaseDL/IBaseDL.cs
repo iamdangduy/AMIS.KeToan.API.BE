@@ -19,7 +19,7 @@ namespace MISA.AMIS.DL
         /// <param name="recordID"></param>
         /// <returns>kiểm tra mã có trùng hay không </returns>
         /// CreatedBy: NDDuy (12/01/2023)
-        public bool CheckDuplicateCode(string? recordCode);
+        public bool CheckDuplicateCode(string? recordCode, Guid? recordID);
 
         /// <summary>
         /// Hàm lấy bản ghi theo ID
@@ -56,5 +56,14 @@ namespace MISA.AMIS.DL
         /// <param name="recordID">Id của nhân viên cần sửa</param>
         /// <returns>mã nhân viên vừa sửa</returns>
         int UpdateRecord(Guid recordID, T newRecord);
+
+        /// <summary>
+        /// Hàm lấy bản ghi theo keyword và paging
+        /// </summary>
+        /// <param name="ms_PageIndex">Vị trí trang</param>
+        /// <param name="ms_PageSize">Số bản ghi trên 1 trang</param>
+        /// <param name="ms_Search">Keyword</param>
+        /// <returns>Danh sách bản ghi thoả mãn</returns>
+        IEnumerable<T> GetRecordFilterPaging(int? ms_PageIndex = 1, int? ms_PageSize = 10, string? ms_Search = "");
     }
 }

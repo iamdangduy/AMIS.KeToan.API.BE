@@ -9,7 +9,7 @@ namespace MISA.AMIS.Common.Entities
         /// Khoá chính
         /// </summary>
         [PrimaryKey]
-        public Guid EmployeeID { get; set; }
+        public Guid EmployeeId { get; set; }
 
         /// <summary>
         /// Mã nhân viên
@@ -26,7 +26,7 @@ namespace MISA.AMIS.Common.Entities
         /// <summary>
         /// Giới tính
         /// </summary>
-        public int? Gender { get; set; }
+        public Gender? Gender { get; set; }
 
         /// <summary>
         /// Ngày sinh

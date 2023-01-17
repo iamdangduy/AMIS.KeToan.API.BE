@@ -30,14 +30,37 @@ namespace MISA.AMIS.BL
 
         #region Method
 
+        public ServiceResponse CheckDuplicateCode(Guid? recordID, T record)
+        {
+            return new ServiceResponse { Success = (int)StatusResponse.Done };
+        }
+
         /// <summary>
         /// Hàm thêm mới bản ghi
         /// </summary>
         /// <param name="newRecord">Thông tin của bản ghi cần thêm mới</param>
         public int CreateRecord(T newRecord)
         {
+            // Validate
+            var validateResult = ValidateData(newRecord);
+            if (validateResult.Success == (int)StatusResponse.Done)
+            {
+                var checkDuplicateCode = CheckDuplicateCode(null, newRecord);
+                if (checkDuplicateCode.Success == (int)StatusResponse.Done)
+                {
+                    _baseDL.CreateRecord(newRecord);
+                    return (int)StatusResponse.Done;
+                }
+                else
+                {
+                    return checkDuplicateCode.Success = (int)StatusResponse.DuplicateCode;
+                }
+            }
+            else
+            {
+                return validateResult.Success = (int)StatusResponse.Invalid;
+            }
 
-            return _baseDL.CreateRecord(newRecord);
         }
 
         /// <summary>
@@ -79,9 +102,26 @@ namespace MISA.AMIS.BL
         /// <returns>mã nhân viên vừa sửa</returns>
         public int UpdateRecord(Guid recordID, T newRecord)
         {
-            return _baseDL.UpdateRecord(recordID, newRecord);
+            // Validate
+            var validateResult = ValidateData(newRecord);
+            if (validateResult.Success == (int)StatusResponse.Done)
+            {
+                var checkDuplicateCode = CheckDuplicateCode(null, newRecord);
+                if (checkDuplicateCode.Success == (int)StatusResponse.Done)
+                {
+                    _baseDL.UpdateRecord(recordID, newRecord);
+                    return (int)StatusResponse.Done;
+                }
+                else
+                {
+                    return checkDuplicateCode.Success = (int)StatusResponse.DuplicateCode;
+                }
+            }
+            else
+            {
+                return validateResult.Success = (int)StatusResponse.Invalid;
+            }
         }
-
 
         /// <summary>
         /// Hàm validate dữ liệu
@@ -123,6 +163,26 @@ namespace MISA.AMIS.BL
             }
             return new ServiceResponse { Success = (int)StatusResponse.Done };
 
+        }
+
+        public virtual ServiceResponse ValidateCustom(T record)
+        {
+            return new ServiceResponse
+            {
+                Success = 1
+            };
+        }
+
+        /// <summary>
+        /// Hàm lấy bản ghi theo keyword và paging
+        /// </summary>
+        /// <param name="ms_PageIndex">Vị trí trang</param>
+        /// <param name="ms_PageSize">Số bản ghi trên 1 trang</param>
+        /// <param name="ms_Search">Keyword</param>
+        /// <returns>Danh sách bản ghi thoả mãn</returns>
+        public IEnumerable<T> GetRecordFilterPaging(int? ms_PageIndex = 1, int? ms_PageSize = 10, string? ms_Search = "")
+        {
+            return _baseDL.GetRecordFilterPaging(ms_PageIndex, ms_PageSize, ms_Search);
         }
 
         #endregion
